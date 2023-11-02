@@ -1,1 +1,2 @@
 D:\Alex lucru\programare\C or C++\Proiecte\an2_sem1_s1\x64\Debug\an2_sem1_s1.exe
+D:\Alex lucru\programare\GitHub_facultate\seminar5\x64\Debug\an2_sem1_s1.exe

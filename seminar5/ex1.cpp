@@ -10,6 +10,83 @@ enum finantare
 	BUGET_BURSA = 3
 };
 
+class Book {
+
+	char* author = nullptr;
+	string title = "";
+	int pages_no = 0;
+	int* page_words_count = nullptr;
+	bool online;
+public:
+	Book() {
+
+	}
+
+	Book(char* _author, string _title, int _pages_no, int* _page_words_count, bool _online) :
+		title(_title), pages_no(_pages_no), online(_online) {
+
+		this->author = new char[strlen(_author) + 1];
+		strcpy_s(this->author, strlen(_author) + 1, _author);
+
+		this->page_words_count = new int[_pages_no];
+		for (int index = 0; index < _pages_no; index++)
+		{
+			this->page_words_count[index] = _page_words_count[index];
+		}
+
+	}
+
+	void set_online(bool _online) {
+
+		this->online = online;
+	}
+
+	void set_author(char* _author) {
+		this->author = new char[strlen(_author) + 1];
+		strcpy_s(this->author, strlen(_author) + 1, _author);
+
+	}
+
+	void set_title(string _title) {
+		this->title = _title;
+
+	}
+
+	void set_page_words_count(int* _page_words_count, int _pages_no) {
+		this->pages_no = _pages_no;
+		this->page_words_count = new int[_pages_no];
+		for (int index = 0; index < _pages_no; index++)
+		{
+			this->page_words_count[index] = _page_words_count[index];
+		}
+
+	}
+
+	char* get_author() { return this->author; }
+	string get_title() { return this->title; }
+	int get_pages_no() { return this->pages_no; }
+	int* get_page_word_count() { return this->page_words_count; }
+	bool get_online() { return this->online; }
+
+	Book(const Book& book) {
+		this->author = book.author;
+		this->title = book.title;
+		this->pages_no = book.pages_no;
+		this->page_words_count = book.page_words_count;
+		this->online = book.online;
+
+	}
+
+	~Book() {
+		delete[] this->author;
+		delete[] this->page_words_count;
+
+	}
+
+};
+
+
+
 
 class Student
 {
@@ -47,24 +124,31 @@ public:
 				//dezaloca a doua oara aceeasi zona de memorie care a fost anterior dezalocata
 	// Aceasta implementare apeleazza constructorul cu parametri. In cadrul constructorului cu parametri alocarea memoriei este facuta corect pentru cele doua variabile membre de tip pointer
 
-	/*
-	Student(const Student& student):
+	
+	/*Student(const Student& student):
 		Student(student.nume, student.adresa, student.varsta, student.an_studii, student.note, student.numar_materii, student.numar_matricol, student.finantare)
 	{
 
-	}
-	*/
+	}*/
 
 	//Sa se implementeze constructorul de copiere fara a apela constructorul cu parametri astfel incat:
    //				- copierea valorilor (in noul obiect) sa se realizeze corect  
    //              - dezalocarea memoriei sa se realizeze fara a genera exceptii
 
-   /*
+
    Student(const Student& student)
    {
+	   this->nume = student.nume;
+	   this->adresa = student.adresa;
+	   this->varsta = student.varsta;
+	   this->an_studii = student.an_studii;
+	   this->note = student.note;
+	   this->numar_materii = student.numar_materii;
+	   this->numar_matricol = student.numar_matricol;
+	   this->finantare = student.finantare;
 
    }
-   */
+
 
    //setters
 	void set_note(int* _note, int _numar_materii)
@@ -136,7 +220,7 @@ private:
 
 int main()
 {
-	Student s0;
+	//Student s0;
 
 	//s0.set_an_studii = "Anghel Mihai";
 
@@ -148,21 +232,31 @@ int main()
 
 	//de ce este generata eroarea?
 	//s0.note = new int[20];
+int pag[3] = { 1, 3, 5 };
 
-	s0.set_nume("Alex");
-	s0.set_adresa((char*)"123");
-	s0.set_varsta(21);
-	s0.set_an_studii(2024);
-	s0.set_numar_matricol("A689867");
-	s0.set_finantare(finantare::BUGET_BURSA);
+	Book b;
 
-	// discutie eroare invalid heap pointer
-	int note[10] = { 9,10,10,10,8,9,7,10,5,10 };
-	s0.set_note(note, 10);
+	b.set_author((char*)"Eu");
+	b.set_page_words_count(pag, 3);
+	b.set_title("O aventura");
+	b.set_online(true);
+
+	Book b1 = Book((char*)"Alex", "alta aventura", 3, pag, true);
+
+	//s0.set_nume("Alex");
+	//s0.set_adresa((char*)"123");
+	//s0.set_varsta(21);
+	//s0.set_an_studii(2024);
+	//s0.set_numar_matricol("A689867");
+	//s0.set_finantare(finantare::BUGET_BURSA);
+
+	//// discutie eroare invalid heap pointer
+	//int note[10] = { 9,10,10,10,8,9,7,10,5,10 };
+	//s0.set_note(note, 10);
 
 
-	Student s1 = Student("Popescu I", (char*)"Bucuresti, Sector 1", 21, 2, note, 10, "A689867", finantare::BUGET_BURSA);
+	/*Student s1 = Student("Popescu I", (char*)"Bucuresti, Sector 1", 21, 2, note, 10, "A689867", finantare::BUGET_BURSA);
 
-	/*Student s2 = s1;
-	s2.nume = "Ionescu C";*/
+	Student s2 = s1;
+	s2.set_nume("Ionescu C");*/
 }
