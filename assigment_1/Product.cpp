@@ -1,4 +1,4 @@
-//Se da clasa Product(in fisierul Product.cpp).
+  //Se da clasa Product(in fisierul Product.cpp).
 //
 //Avand ca model exercitiul lucrat la seminarul de astazi, sa se implementeze in clasa Product :
 //
@@ -41,6 +41,10 @@ public:
 
 		this->description = new const [strlen(_description) + 1];
 		strcpy_s(this->description, strlen(_description) + 1, _description);
+
+		this->priceHistory = new const double[_itemsSold;]
+			for (int index = 0; index <= itemsSold; index++)
+				this->priceHistory[index] = _priceHistory[index];
 	}
 
 	//all setters
@@ -52,8 +56,26 @@ public:
 	void set_priceHistory(const double* _priceHistory, int _itemsSold) {
 		this->itemsSold = _itemsSold;
 
-		this->priceHistory = new const double[_priceHistory;]
+		this->priceHistory = new const double[_itemsSold;]
+			for (int index= 0; index <= itemsSold; index++)
+				this->priceHistory[index] = _priceHistory[index];
+	}
 
+	void set_price(double _price) {
+		if (this->price != _price)
+			this->price = _price;	
+
+		if (this->priceHistory != nullptr){
+				delete[] this->priceHistory;
+
+		}
+
+		this->priceHistory = new double[_itemsSold + 1]
+			for (int index = 0; index <= itemsSold; index++)
+				this->priceHistory[index + 1] = _priceHistory[index];
+
+		this->priceHistory[0] = this->price;
+		this->itemsSold = _itemsSold + 1;
 	}
 
 	void set_name(const char* _name) {
@@ -72,18 +94,35 @@ public:
 
 	}
 
+	int get_id() { return this->_id; }
+	char* get_name() { return this->name; }
+	char* get_description() { return this->description; }
+	double get_price() { return this->price; }
+	double* get_priceHistory() { return this->priceHistory; }
+	int get_itemsSold() { return this->itemsSold; }
 
 
-	//all getters
-	//.....
 
-	double getPriceAverage()
-	{
+	double getPriceAverage(double* _priceHistory, int _itemsSold){
+		double average;
+		for (int index = 0; index <= _itemsSold; index++)
+			average += _priceHistory[index];
+		return average / _itemsSold
+
+	}
+	
+
+	//ctr de copiere
+	Product(const Product& product) :
+		Product(product.id, product.name, product.description, product.price, product.priceHistory, product.itemsSold) {
 
 	}
 
-	~Product()
-	{
+
+	~Product(){
+		delete this->name;
+		delete this->description;
+		delete this->priceHistory;
 
 	}
 };
